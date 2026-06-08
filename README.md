@@ -1,74 +1,74 @@
 # SportKalender Frontend
 
-Angular frontend for the Modul 294 SportKalender project. The app uses the Spring Boot backend contract documented in [FRONTEND_BACKEND_CONTEXT.md](FRONTEND_BACKEND_CONTEXT.md).
+Angular-Frontend für den ÜK 294 "Frontend für Applikationen realisieren". Die Applikation verwendet das Spring-Boot-Backend aus Modul 295 und orientiert sich am Backend-Vertrag in [FRONTEND_BACKEND_CONTEXT.md](FRONTEND_BACKEND_CONTEXT.md).
 
-## Implemented Scope
+## Umgesetzter Umfang
 
-- Angular standalone application with routing and SCSS.
-- Dashboard, event list, event detail, event form, task list, task form, auth status, role badge, shell, and forbidden page components.
-- CRUD services for `/api/event` and `/api/task`.
-- Auth claims service for `/api/auth/claims`.
-- OAuth2/Keycloak integration with automatic bearer-token HTTP interceptor.
-- `READ` and `UPDATE` role support with guarded routes and hidden update controls.
-- Vitest unit tests for API services and shared UI.
+- Angular-Standalone-Applikation mit Routing und SCSS.
+- Komponenten für Übersicht, Terminliste, Termindetails, Terminformular, Aufgabenliste, Aufgabenformular, Authentifizierungsstatus, Rollenanzeige, Layout und Zugriffsschutz.
+- CRUD-Services für `/api/event` und `/api/task`.
+- Auth-Service für `/api/auth/claims`.
+- OAuth2-/Keycloak-Anbindung mit automatischem Bearer-Token-Interceptor.
+- Unterstützung der Rollen `READ` und `UPDATE` mit geschützten Routen und ausgeblendeten Bearbeitungsfunktionen.
+- Unit Tests mit Vitest für API-Services und wiederverwendbare UI-Komponenten.
 
-## Backend Setup
+## Backend-Voraussetzungen
 
-Expected backend services:
+Erwartete Backend-Dienste:
 
 ```txt
 Spring Boot API: http://localhost:9090
 Swagger UI:      http://localhost:9090/
 OpenAPI JSON:    http://localhost:9090/v3/api-docs
-Keycloak issuer: http://localhost:8080/realms/Sportkalender
+Keycloak Issuer: http://localhost:8080/realms/Sportkalender
 ```
 
-The frontend runs on `http://localhost:4200`, which matches the current backend CORS configuration.
+Das Frontend läuft auf `http://localhost:4200`. Diese Origin ist im Backend aktuell für CORS freigegeben.
 
-## Keycloak Client
+## Keycloak-Client
 
-Create a public client in the `Sportkalender` realm:
+Im Realm `Sportkalender` wird ein öffentlicher Client benötigt:
 
 ```txt
 Client ID: sportkalender-frontend
 Valid redirect URIs: http://localhost:4200/*
 Web origins: http://localhost:4200
-Roles: READ, UPDATE
+Rollen: READ, UPDATE
 ```
 
-Users with `READ` can view dashboard, events, and tasks. Users with `UPDATE` can create, edit, delete, and toggle records.
+Benutzer mit `READ` dürfen Übersicht, Termine und Aufgaben ansehen. Benutzer mit `UPDATE` dürfen Termine und Aufgaben erstellen, bearbeiten, löschen und den Aufgabenstatus ändern.
 
-## Development
+## Entwicklung
 
 ```bash
 npm install
 npm start
 ```
 
-Open `http://localhost:4200`.
+Danach `http://localhost:4200` im Browser öffnen.
 
-## Verification
+## Prüfung
 
 ```bash
 npm test
 npm run build
 ```
 
-## Project Structure
+## Projektstruktur
 
 ```txt
 src/app/
 	core/
-		api/        REST services for backend controllers
-		auth/       Keycloak service, interceptor, route guard
-		models/     Event, Task, and auth claim types
+		api/        REST-Services für die Backend-Controller
+		auth/       Keycloak-Service, Interceptor und Route Guard
+		models/     Typen für Termin, Aufgabe und Auth-Claims
 	features/
-		auth/       Forbidden page
-		dashboard/  Overview page
-		events/     Event CRUD screens
-		tasks/      Task CRUD screens
+		auth/       Seite für verweigerten Zugriff
+		dashboard/  Übersichtsseite
+		events/     Termin-CRUD-Seiten
+		tasks/      Aufgaben-CRUD-Seiten
 	shared/
-		components/ Shell, auth status, role badge
+		components/ Layout, Authentifizierungsstatus, Rollenanzeige
 ```
 
-Suggested commit slices are listed in [COMMIT_BREAKS.md](COMMIT_BREAKS.md).
+Vorgeschlagene Commit-Pakete stehen in [COMMIT_BREAKS.md](COMMIT_BREAKS.md).
