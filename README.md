@@ -1,6 +1,6 @@
 # SportKalender Frontend
 
-Angular-Frontend für den ÜK 294 "Frontend für Applikationen realisieren". Die Applikation verwendet das Spring-Boot-Backend aus Modul 295 und orientiert sich am Backend-Vertrag in [FRONTEND_BACKEND_CONTEXT.md](FRONTEND_BACKEND_CONTEXT.md).
+Angular-Frontend für den ÜK 294 "Frontend für Applikationen realisieren". Die Applikation verwendet das Spring-Boot-Backend aus Modul 295.
 
 ## Umgesetzter Umfang
 
@@ -85,5 +85,3 @@ src/app/
   shared/
     components/ Layout, Authentifizierungsstatus, Rollenanzeige
 ```
-
-Vorgeschlagene Commit-Pakete stehen in [COMMIT_BREAKS.md](COMMIT_BREAKS.md).
