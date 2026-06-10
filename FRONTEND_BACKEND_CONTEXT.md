@@ -5,7 +5,6 @@ Use this document as the handoff/context file for creating the frontend in `spor
 The backend is a Spring Boot REST API for managing sport calendar events and tasks. The frontend should call this backend through HTTP and should not duplicate backend logic.
 
 ## Backend Project
-
 Backend folder:
 
 ```txt

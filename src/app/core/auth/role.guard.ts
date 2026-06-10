@@ -9,8 +9,16 @@ export const roleGuard: CanActivateFn = (route) => {
   const roles = (route.data['roles'] ?? []) as AppRole[];
 
   if (!auth.authenticated()) {
-    void auth.login();
-    return false;
+    if (!auth.available() && (!roles.length || roles.includes('READ'))) {
+      return true;
+    }
+
+    if (auth.available()) {
+      void auth.login();
+      return false;
+    }
+
+    return router.parseUrl('/forbidden');
   }
 
   if (!roles.length || auth.hasAnyRole(roles)) {

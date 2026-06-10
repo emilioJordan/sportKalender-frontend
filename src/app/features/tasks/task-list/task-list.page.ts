@@ -1,5 +1,8 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
 import { TaskService } from '../../../core/api/task.service';
 import { KeycloakAuthService } from '../../../core/auth/keycloak.service';
 import { Task } from '../../../core/models/task';
@@ -7,7 +10,7 @@ import { Task } from '../../../core/models/task';
 @Component({
   selector: 'app-task-list-page',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, MatButtonModule, MatCardModule, MatIconModule],
   template: `
     <section class="page">
       <header class="page-header">
@@ -16,29 +19,41 @@ import { Task } from '../../../core/models/task';
           <p class="page-subtitle">Aufgaben für Termine planen und erledigen.</p>
         </div>
         @if (auth.hasRole('UPDATE')) {
-          <a class="button" routerLink="/tasks/new">Aufgabe erstellen</a>
+          <a mat-flat-button routerLink="/tasks/new">
+            <mat-icon>add_task</mat-icon>
+            Aufgabe erstellen
+          </a>
         }
       </header>
 
       <section class="grid">
         @for (task of tasks(); track task.id ?? task.title) {
-          <article class="card task-card">
-            <div>
+          <mat-card class="card task-card">
+            <mat-card-content>
               <span class="status-pill" [class.good]="task.completed" [class.warn]="!task.completed">{{ task.completed ? 'Erledigt' : 'Offen' }}</span>
               <h2>{{ task.title }}</h2>
               <p>{{ task.description }}</p>
               @if (task.event?.id) {
                 <small class="muted">Event-ID: {{ task.event?.id }}</small>
               }
-            </div>
+            </mat-card-content>
             @if (auth.hasRole('UPDATE')) {
-              <div class="actions">
-                <button class="secondary" type="button" (click)="toggle(task)">{{ task.completed ? 'Wieder öffnen' : 'Abschließen' }}</button>
-                <a class="button secondary" [routerLink]="['/tasks', task.id, 'edit']">Bearbeiten</a>
-                <button class="danger" type="button" (click)="delete(task)">Löschen</button>
-              </div>
+              <mat-card-actions class="actions">
+                <button mat-stroked-button type="button" (click)="toggle(task)">
+                  <mat-icon>{{ task.completed ? 'undo' : 'done' }}</mat-icon>
+                  {{ task.completed ? 'Wieder öffnen' : 'Abschließen' }}
+                </button>
+                <a mat-stroked-button [routerLink]="['/tasks', task.id, 'edit']">
+                  <mat-icon>edit</mat-icon>
+                  Bearbeiten
+                </a>
+                <button mat-stroked-button type="button" color="warn" (click)="delete(task)">
+                  <mat-icon>delete</mat-icon>
+                  Löschen
+                </button>
+              </mat-card-actions>
             }
-          </article>
+          </mat-card>
         } @empty {
           <p class="panel muted">Noch keine Aufgaben vorhanden.</p>
         }
