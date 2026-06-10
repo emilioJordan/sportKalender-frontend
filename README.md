@@ -36,6 +36,14 @@ Das Frontend läuft auf `http://localhost:4200`. Diese Origin ist im Backend akt
 | Keycloak | `http://localhost:8080/realms/Sportkalender` | `./kc.bat start-dev` |
 | Angular Frontend | `http://localhost:4200` | `npm start` |
 
+Falls Keycloak beim ersten Start noch keinen Admin-Benutzer hat:
+
+```powershell
+$env:KEYCLOAK_ADMIN='admin'
+$env:KEYCLOAK_ADMIN_PASSWORD='admin'
+.\kc.bat start-dev --http-port 8080
+```
+
 Keycloak muss dafür lokal installiert sein. Den Keycloak-Command im `bin`-Ordner der Keycloak-Installation ausführen, falls `kc.bat` nicht global im Terminal verfügbar ist.
 
 ## Keycloak-Client
