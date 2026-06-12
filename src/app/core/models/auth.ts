@@ -1,4 +1,4 @@
-export type AppRole = 'READ' | 'UPDATE';
+export type AppRole = 'READ' | 'UPDATE' | 'ADMIN';
 
 export interface UserClaims {
   sub?: string;

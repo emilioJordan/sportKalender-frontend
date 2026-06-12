@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 
 import { App } from './app';
-import { KeycloakAuthService } from './core/auth/keycloak.service';
+import { KeycloakAuthService } from './core/keycloak/keycloak.service';
 
 describe('App', () => {
   beforeEach(async () => {

@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { KeycloakAuthService } from '../../../core/auth/keycloak.service';
+import { KeycloakAuthService } from '../../../core/keycloak/keycloak.service';
 import { RoleBadgeComponent } from '../role-badge/role-badge.component';
 
 @Component({

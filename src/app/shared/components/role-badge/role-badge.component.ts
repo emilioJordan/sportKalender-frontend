@@ -3,7 +3,7 @@ import { Component, input } from '@angular/core';
 @Component({
   selector: 'app-role-badge',
   standalone: true,
-  template: `<span class="role" [class.update]="role().toUpperCase() === 'UPDATE'">{{ role() }}</span>`,
+  template: `<span class="role" [class.update]="role().toUpperCase() === 'UPDATE'" [class.admin]="role().toUpperCase() === 'ADMIN'">{{ role() }}</span>`,
   styles: `
     .role {
       background: #edf5f8;
@@ -20,6 +20,12 @@ import { Component, input } from '@angular/core';
       background: #eaf7ef;
       border-color: #b9dfc5;
       color: #1d6a3a;
+    }
+
+    .role.admin {
+      background: #fff1f2;
+      border-color: #fecdd3;
+      color: #9f1239;
     }
   `,
 })

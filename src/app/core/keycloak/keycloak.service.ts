@@ -153,6 +153,10 @@ export class KeycloakAuthService {
       roles.add('UPDATE');
     }
 
+    if (rawRoles.has('ADMIN') || rawRoles.has('ROLE_ADMIN')) {
+      roles.add('ADMIN');
+    }
+
     return [...roles];
   }
 }

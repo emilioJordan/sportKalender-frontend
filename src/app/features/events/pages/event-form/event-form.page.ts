@@ -6,8 +6,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { EventService } from '../../../core/api/event.service';
-import { Event } from '../../../core/models/event';
+import { EventService } from '../../../../core/api/event.service';
+import { Event } from '../../../../core/models/event';
 
 @Component({
   selector: 'app-event-form-page',

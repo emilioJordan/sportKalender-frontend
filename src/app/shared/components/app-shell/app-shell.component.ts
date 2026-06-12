@@ -3,7 +3,7 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { KeycloakAuthService } from '../../../core/auth/keycloak.service';
+import { KeycloakAuthService } from '../../../core/keycloak/keycloak.service';
 
 @Component({
   selector: 'app-shell',
@@ -15,7 +15,7 @@ import { KeycloakAuthService } from '../../../core/auth/keycloak.service';
         <span class="brand-mark">SK</span>
         <span>
           <strong>SportKalender</strong>
-          <small>Termin- und Aufgabenplanung</small>
+          <small>Terminplanung</small>
         </span>
       </a>
 
@@ -28,11 +28,7 @@ import { KeycloakAuthService } from '../../../core/auth/keycloak.service';
           <mat-icon>event</mat-icon>
           Termine
         </a>
-        <a mat-button routerLink="/tasks" routerLinkActive="active">
-          <mat-icon>checklist</mat-icon>
-          Aufgaben
-        </a>
-        @if (auth.hasRole('UPDATE')) {
+        @if (auth.hasRole('READ')) {
           <a mat-flat-button routerLink="/events/new" routerLinkActive="active">
             <mat-icon>add</mat-icon>
             Neuer Termin
@@ -44,11 +40,6 @@ import { KeycloakAuthService } from '../../../core/auth/keycloak.service';
         @if (auth.authenticated()) {
           <div>
             <strong>{{ auth.username() }}</strong>
-            <div class="roles">
-              @for (role of auth.roles(); track role) {
-                <span class="role" [class.update]="role === 'UPDATE'">{{ role }}</span>
-              }
-            </div>
           </div>
           <button mat-stroked-button type="button" (click)="auth.account()">
             <mat-icon>account_circle</mat-icon>

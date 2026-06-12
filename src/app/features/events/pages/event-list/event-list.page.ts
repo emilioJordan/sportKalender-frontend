@@ -5,9 +5,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
-import { EventService } from '../../../core/api/event.service';
-import { KeycloakAuthService } from '../../../core/auth/keycloak.service';
-import { Event } from '../../../core/models/event';
+import { EventService } from '../../../../core/api/event.service';
+import { KeycloakAuthService } from '../../../../core/keycloak/keycloak.service';
+import { Event } from '../../../../core/models/event';
 
 @Component({
   selector: 'app-event-list-page',
@@ -20,7 +20,7 @@ import { Event } from '../../../core/models/event';
           <h1 class="page-title">Termine</h1>
           <p class="page-subtitle">Trainings, Turniere und Vereinsanlässe verwalten.</p>
         </div>
-        @if (auth.hasRole('UPDATE')) {
+        @if (auth.hasRole('READ')) {
           <a mat-flat-button routerLink="/events/new">
             <mat-icon>add</mat-icon>
             Termin erstellen
@@ -62,10 +62,12 @@ import { Event } from '../../../core/models/event';
                   <mat-icon>edit</mat-icon>
                   Bearbeiten
                 </a>
-                <button mat-stroked-button type="button" color="warn" (click)="delete(event)">
-                  <mat-icon>delete</mat-icon>
-                  Löschen
-                </button>
+                @if (auth.hasRole('ADMIN')) {
+                  <button mat-stroked-button type="button" color="warn" (click)="delete(event)">
+                    <mat-icon>delete</mat-icon>
+                    Löschen
+                  </button>
+                }
               }
             </td>
           </ng-container>

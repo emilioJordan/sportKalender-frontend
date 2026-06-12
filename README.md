@@ -6,11 +6,11 @@ Angular-Frontend für den ÜK 294 "Frontend für Applikationen realisieren". Die
 
 - Angular-Standalone-Applikation mit Routing, Lazy Loading und SCSS.
 - Angular Material mit Toolbar, Buttons, Icons, Cards, Tabelle, Formularfeldern, Select und Checkbox.
-- Komponenten für Übersicht, Terminliste, Termindetails, Terminformular, Aufgabenliste, Aufgabenformular, Authentifizierungsstatus, Rollenanzeige, Layout und Zugriffsschutz.
-- CRUD-Services für `/api/event` und `/api/task`.
+- Komponenten für Übersicht, Terminliste, Termindetails, Terminformular, Authentifizierungsstatus, Rollenanzeige, Layout und Zugriffsschutz.
+- CRUD-Service für `/api/event`.
 - Auth-Service für `/api/auth/claims`.
 - OAuth2-/Keycloak-Anbindung mit automatischem Bearer-Token-Interceptor.
-- Unterstützung der Rollen `READ` und `UPDATE` mit geschützten Routen und ausgeblendeten Bearbeitungsfunktionen.
+- Unterstützung der Rollen `READ`, `UPDATE` und `ADMIN` mit geschützten Routen und ausgeblendeten Bearbeitungsfunktionen.
 - Unit Tests mit Vitest für API-Services und wiederverwendbare UI-Komponenten.
 
 ## Backend-Voraussetzungen
@@ -54,10 +54,10 @@ Im Realm `Sportkalender` wird ein öffentlicher Client benötigt:
 Client ID: sportkalender-frontend
 Valid redirect URIs: http://localhost:4200/*
 Web origins: http://localhost:4200
-Rollen: READ, UPDATE
+Rollen: READ, UPDATE, ADMIN
 ```
 
-Benutzer mit `READ` dürfen Übersicht, Termine und Aufgaben ansehen. Benutzer mit `UPDATE` dürfen Termine und Aufgaben erstellen, bearbeiten, löschen und den Aufgabenstatus ändern. Falls das Backend beziehungsweise Keycloak die Rollen als `ROLE_USER` und `ROLE_ADMIN` ausgibt, mappt das Frontend `ROLE_USER` auf `READ` und `ROLE_ADMIN` auf `READ` plus `UPDATE`.
+Benutzer mit `READ` dürfen Übersicht und Termine ansehen sowie Termine erstellen. Benutzer mit `UPDATE` dürfen Termine bearbeiten. Benutzer mit `ADMIN` dürfen zusätzlich Termine löschen. Falls das Backend beziehungsweise Keycloak die Rollen als `ROLE_USER` und `ROLE_ADMIN` ausgibt, mappt das Frontend `ROLE_USER` auf `READ` und `ROLE_ADMIN` auf `READ` plus `UPDATE` plus `ADMIN`.
 
 Keycloak muss für den echten Login auf `http://localhost:8080` laufen. Wenn Keycloak offline ist, zeigt die App nur eine lokale Lese-Demo und sperrt Bearbeitungsfunktionen.
 
@@ -83,13 +83,12 @@ npm run build
 src/app/
   core/
     api/        REST-Services für die Backend-Controller
-    auth/       Keycloak-Service, Interceptor und Route Guard
-    models/     Typen für Termin, Aufgabe und Auth-Claims
+    keycloak/   Keycloak-Service, Interceptor und Route Guard
+    models/     Typen für Termin und Auth-Claims
   features/
-    auth/       Seite für verweigerten Zugriff
-    dashboard/  Übersichtsseite
-    events/     Termin-CRUD-Seiten
-    tasks/      Aufgaben-CRUD-Seiten
+    auth/       pages/ für Auth-Seiten
+    dashboard/  pages/ und components/ für Übersicht und Kalender
+    events/     pages/ für Termin-CRUD-Seiten
   shared/
     components/ Layout, Authentifizierungsstatus, Rollenanzeige
 ```
